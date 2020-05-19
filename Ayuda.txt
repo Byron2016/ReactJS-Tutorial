@@ -1,0 +1,260 @@
+
+			
+
+    ***************************************************************
+    **                                                           **
+    **                      TutorialReact_01                     **
+    **                                                           **
+    ***************************************************************
+- TutorialReact_01
+	- TITULO: ReactJS Tutorial 
+	- REFERENCIAS
+		- https://www.youtube.com/watch?v=9hb_0TZ_MVI&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=2
+		- https://es.reactjs.org/tutorial/tutorial.html
+		
+	- PASOS
+        ***************************************************************
+        **                                                           **
+        **                       Video 1                             **
+        **                                                           **
+        ***************************************************************
+		- Video 1
+		01.- Prerequisitos
+			- Nodejs
+			- Editor de texto
+		02.- Crear nueva aplicación React
+			- Herramienta "Create React App"
+				- Es una interfase de comandos que nos permite crear
+				  aplicaciones React sin necesidad de configuraciones.
+				- Ejecutar "npx create-react-app AAA_hello-world"
+					- Equivale a
+						- npm install create-react-app -g
+						- create-react-app <project_name>
+			- Correr aplicación
+				- Ir al directorio de la aplicación
+				- Ejecutar "npm start"
+
+			- Entendiendo arquitectura
+				- Dentro de carpeta PUBLIC tenemos archivo "index.html"
+				- Archivo "index.html" tiene una etiqueta "div id="root""
+				- Punto de entra del aplicativo: "src/index.js"
+					- Indica que se ponga APP dentro del tab "div id="root""
+				- Archivo "App.js" contiene el código a ser puesto dentro de "div"
+
+		03.- Componentes 
+			- Describen una parte de la interfaz de usaurio.
+			- El ROOT (App) component, contiene
+				- HEADER component
+				- SLIDENAV component
+				- MAIN CONTENT component
+				- FOOTER component
+			- Es usualmente desarrollado en javascrit
+			- Tipos de componetes
+				- Stateless Functional Component
+				- Stateful Class Component
+
+				- Stateless Functional Component
+					- Son literalmente funciones javaScript que retornan HTML que describen el user interfase.
+					- Ejemplo
+						function Welcome(props){
+							return <h1>Hello, {props.name}</h1>;
+						}
+
+
+
+				- Stateful Class Component
+					- son Clases regulares de ES6 que extienden la clase
+					  component del react library.
+					- Deben tener un método render que retorna HTML
+					- Ejemplo
+						class Welcome extends React.Component {
+							render(){
+								return <h1>Hello, {props.name}</h1>;
+							}
+						}
+
+		04.- Functional Components 
+			- Es una función js que acepta parámetros de entrada y retorna HTML 
+
+			- Creamos nuevo folder llamado "components"
+			- Crear dentro carpeta "components" archivo "Greet.js"
+				import React from 'react'
+
+				function Greet(){
+					return <h1>Hola mundo</h1>
+				}
+
+				export default Greet;
+
+			- En App.js
+				import Greet from './components/Greet'
+
+				.....
+
+				<Greet></Greet>
+
+			- Usando Arrow function
+				- const Greet = () => <h1>Hola mundo desde Greet</h1>
+
+		05.- Usando named export.
+			- En lugar de usar "export default Greet;"
+			- usamos export const Greet = () => <h1>Hola mundo desde Greet</h1>
+				- En este caso el import debe hacerse con EL MISMO NOMBRE y de la siguiente forma
+					import { Greet }
+
+
+		06.- Class Comonents
+			- Es una Clase ES6
+			- Puede recibir parámetros
+			- Retorna HTML (jsx)
+			- Puede también mantener un estado interno PRIVADO. (State)
+
+			- Ejemplo
+				- Crear archivo "components/Welcome.js"
+					import React, { Component } from 'react'
+
+					class Welcome extends Component {
+						render() {
+							return <h1>Desde el Class Component</h1>
+						}
+
+					}
+
+					export default Welcome
+
+
+		07.- Functional vs Class Components.
+			- Functinal
+				- Son funciones simples.
+				- Usarlas lo más posible que se pueda.
+					Si puede construir de las dos formas, elija la funtional.
+				- En class components no tengo "this"
+				- Se obliga a pensar en una solución sin tener que usar STATE (Debugar en Class component es complicado con esta propiedad)
+
+			- Class components
+				- More feature rich
+				- Mantiene su propia data privada - state
+				- Permiten mantener lógica de UI más complicada
+				- Provee ciclos de vida hooks
+				- Son también llamadas: Stateful/Smart/Container
+
+		08.- React 16.7 (Functional vs Class Components.)
+			- Ya se pueden usar Hooks sin escribir clases
+			- No han habido breakins changes
+			- Completamente opt-in y 100% backwards-compatible
+			- 
+
+		09.- JSX
+			- Es una extensión a la sintaxis del lenguaje js
+			- No es necesario apra escribir react aplication.
+			- usarlo hace su aplicación simple y elegante
+			- JSX DIFERENCIAS
+				- Class -> className
+				- for   -> htmlFor
+				- camelCase property naming convention
+					- onclick  -> onClick
+					- tabIndex -> tabIndex
+
+		10.- Props
+			- Reutilización de componentes
+				- para Greet component
+					Solo se dupica el tab <Greet />
+			- Pasar un nombre del App component al Greet componen y renderizarlo.
+				- <Greet name="Bruce" />
+				- { props.name }
+				- { props.children}
+
+			- para Class Components usamos
+				- { this.props.name }
+
+		11.- State
+			- props vs state
+				- props
+					- Son pasados al componente 
+					- Son declarados como parámetros de la función
+					- props no se pueden cambiar son inmutables
+					- Forma de acceso
+						- props - functional components
+						- this.props - Class Components
+
+
+				- state
+					- son manejados dentro del componente
+					- Son declaradas como variables en el cuerpo de la función.
+					- State pueden ser cambiados por el componente
+					- Forma de acceso
+						- useState Hook - functional components
+						- this.state - Class Components
+
+					- Pasos
+						- Crear constructor para definir el state
+						constructor() {
+							super()
+							this.state = {
+
+							}
+						}
+						- Inicializar el valor
+						constructor() {
+							super()
+							this.state = {
+								message: 'Bienvenido visitante'
+							}
+						}
+						- Retornar el mensaje
+							{ this.state.message }
+						- Cambiar el mensaje
+							<button onClick = { () => this.changeMessage() } > Subscribirse </button>
+
+							changeMessage() {
+								this.setState({
+									message : 'Gracias por suscribirse'
+								})
+							}
+
+
+				// termine esto: https://www.youtube.com/watch?v=4ORZ1GmjaMc&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+	- https://www.youtube.com/watch?v=9hb_0TZ_MVI&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=2
+		- CREATE React App
+			- https://github.com/facebook/create-react-app
+				- npx create-react-app hello-world
+				- cd hello-world
+				- npm start
+					- https://rubensa.wordpress.com/2019/11/27/pero-que-demonios-es-package-lock-json/
+						- package.json es un fichero que contiene información acerca de tu proyecto (nombre, versión, etc) además de listar los paquetes de los que depende.
+						- package-lock.json sencillamente evita este comportamiento general de actualizar versiones minor o fix de modo que cuando alguien clona nuestro repositorio y ejecuta npm install en su equipo, npm examinará package-lock.json e instalará la versión exacta de los paquete que nosotros habíamos instalado, ignorando así los ^ y ~ de package.json.
+
+					- https://blog.nubecolectiva.com/que-es-y-como-configurar-manifest-json-en-una-pagina-web/
+						- manifest.json
+
+
+
+https://www.youtube.com/watch?v=9VIiLJL0H4Y&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&index=3
+
+
+- Running NPM Scripts through maven
+	- https://gist.github.com/phillipgreenii/7c954e3c3911e5c32bd0
+	- https://auth0.com/blog/integrating-node-dot-js-build-tools-with-maven/
+	
+	- https://samerabdelkafi.wordpress.com/2015/09/25/gulp-on-a-maven-managed-project/
+	
+	- How to pack Angular 8 applications on regular war files
+		- https://vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html
+			- Payara: https://www.youtube.com/watch?v=IvK61GDvu_I&t=76s
